@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Users = require('../models/users');
+const objectId = require('mongodb').ObjectID;
+
 
 router.get('/', async (req, res)=>{
     try{
@@ -12,18 +14,16 @@ router.get('/', async (req, res)=>{
         res.send(err)
     }
 });
-//new
-router.get('/new', async (req, res) => {
-    try{
-      const allUsers = await Users.find({});
-      res.render('users/new.ejs',{
-        Users:allUsers
-      });
-    } catch(err){
-      res.send(err)
-    }
-});
-
+//on reviews show page is your own reviews
+//index page for seeing reviews
+//new reviews is making a new review
+//should be able to see all users and then click on them to write a review about them
+//reviews/show should have all the users
+//users INDEX Page is their page for viewing himself
+//reviews index shows all other users
+//reviews show is just one user
+//on user and review model, review is connected to target of review and who's doing it, to show reviews 
+//about a person, review.find(reviewee has the same id as the person who's logged in) do a quiery based on the field
 router.post('/', async (req, res) => {
     try{
         const users = await Users.create(req.body);

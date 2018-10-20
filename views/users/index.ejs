@@ -14,11 +14,14 @@
     </nav>
   </header><!-- /header -->
   <main>
-    <h2>List of Users</h2>
+    <h2>Your Page</h2>
     <ul>
-      <% for (let i = 0; i < users.length; i++){%>
-           <li><a href="/users/<%=users[i].id%>"><%=users[i].name %></a></li>
-      <%}%>
+<!--THEIR REVIEWS -->
+<section>
+    <% for (let i = 0; i < reviews.length; i++) { %>
+        <a href="/reviews/<%=reviews[i]._id%>"></a>
+    <%}%>
+</section>
     </ul>
 
   </main>

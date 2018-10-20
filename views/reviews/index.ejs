@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reviews</title>
+</head>
+<body>
+<h2>Reviews</h2>
+      <ul>
+        <li><a href="/users"><%=users.username%>'s Home page</a></li>
+        <li><a href="/reviews/new">Drop a review</a></li>
+      </ul>
+    </nav>
+  </header><!-- /header --> 
+  <main>
+    <h2>List of users to review..</h2>
+    <ul>
+      <% for (let i = 0; i < users.length; i++){%>
+           <li><a href="/users/<%=users[i]._id%>"><%=users[i].username %></a></li>
+      <%}%>
+    </ul>
+    <div class="ratings">
+        <p class="pull-right"> reviews</p>
+        <p>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star-empty"></span>
+        </p>
+    </div>
+
+</body>
+</html>

@@ -2,6 +2,7 @@ const express = require('express');
 const router  = express.Router();
 const User    = require('../models/users');
 const bcrypt  = require('bcryptjs');
+const objectId = require('mongodb').ObjectID;
 
 //login
 router.get('/login', (req, res) => {
@@ -10,9 +11,10 @@ router.get('/login', (req, res) => {
   });
 });
 //register
-router.post('auth/register', async (req, res) => {
+router.post('/register', async (req, res) => {
+    console.log(req.body)
   const password = req.body.password;
-  const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+  const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(2));
   console.log(`${passwordHash} is hash, ${password} is password`)
 
   const userEntry = {};
@@ -23,7 +25,7 @@ router.post('auth/register', async (req, res) => {
   console.log(`the user info is ${user}`);
   req.session.logged   = true;
   req.session.message  = '';
-  res.redirect('/auth');
+  res.redirect('/auth/login');
 });
 
 //login
@@ -34,7 +36,7 @@ router.post('/login', async (req, res) => {
           if(foundUser){
             if(bcrypt.compareSync(req.body.password, foundUser.password)){
               req.session.logged = true;
-              res.redirect('/auth')
+              res.redirect('/reviews')
             } else {
               req.session.message = 'Username or Password is Wrong';
               res.redirect('/auth/login')

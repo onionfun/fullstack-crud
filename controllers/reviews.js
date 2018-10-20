@@ -2,25 +2,28 @@ const express = require('express');
 const router = express.Router();
 const Users = require('../models/users');
 const Reviews = require('../models/reviews');
+const objectId = require('mongodb').ObjectID;
+
 
 //routes
 //index
 router.get('/',async (req, res) => {
     try{
         const foundUser = await Users.find({});
-        res.render('users/index.ejs', {
+        res.render('reviews/index.ejs', {
             users: foundUser
         })
     } catch(err){
         res.send(err)
     }
 })
+
 //that new new
 router.get('/new', async (req, res) => {
     try{
       const allUsers = await Users.find({});
       res.render('users/new.ejs',{
-        Users:allUsers
+        users:allUsers
       });
     } catch(err){
       res.send(err)
