@@ -3,7 +3,7 @@ const router = express.Router();
 const Users = require('../models/users');
 const objectId = require('mongodb').ObjectID;
 
-
+//index
 router.get('/', async (req, res)=>{
     try{
         const allUsers = await Users.find();
@@ -22,6 +22,7 @@ router.get('/', async (req, res)=>{
 //users INDEX Page is their page for viewing himself
 //reviews index shows all other users
 //reviews show is just one user
+//list of users to review takes it to review show page
 //on user and review model, review is connected to target of review and who's doing it, to show reviews 
 //about a person, review.find(reviewee has the same id as the person who's logged in) do a quiery based on the field
 router.post('/', async (req, res) => {
@@ -37,7 +38,7 @@ router.post('/', async (req, res) => {
 router.get('/:id', async (req, res)=>{
     try{
       const foundUsers = await Users.findById(req.params.id);
-      const foundReviews = await Reviews.findOne({'articles._id': req.params.id});
+      const foundReviews = await Reviews.findOne({'reviews._id': req.params.id});
       res.render('reviews/show.ejs', {
             reviews: foundReviews,
             users: foundUsers
