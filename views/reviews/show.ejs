@@ -5,19 +5,9 @@
 </head>
 <body>
   <header>
-    <h1>Reviews</h1>
-    <nav>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="users/show">Review User</a></li>
-       <!-- <ul>
-      <% for (let i = 0; i < users.length; i++){%>
-           <li><a href="/users/<%=users[i].id%>"><%=users[i].name %></a></li>
-      <%}%>
-    </ul>
-      </ul> -->
-    </nav>
+    <h1><%=users.username%>'s Profile</h1>
   </header>
-  
+      <a href="/reviews/"><button>Home</button></a><br>
+      <a href="/users/<%=users._id%>"><button>Review User</button></a>
 </body>
 </html>
