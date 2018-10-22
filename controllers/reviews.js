@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Users = require('../models/users');
 const Reviews = require('../models/reviews');
-const objectId = require('mongodb').ObjectID;
 
 
 //routes
@@ -10,8 +9,10 @@ const objectId = require('mongodb').ObjectID;
 router.get('/',async (req, res) => {
     try{
         const foundUser = await Users.find({});
+        const loggedIn = await Users.findOne({'users._id': req.params.id});
         res.render('reviews/index.ejs', {
-            users: foundUser
+            users: foundUser,
+            currentUser: loggedIn
         })
     } catch(err){
         res.send(err)
@@ -22,7 +23,7 @@ router.get('/',async (req, res) => {
 router.get('/new', async (req, res) => {
     try{
       const allUsers = await Users.find({});
-      res.render('users/new.ejs',{
+      res.render('reviews/new.ejs',{
         users:allUsers
       });
     } catch(err){
@@ -33,7 +34,7 @@ router.get('/new', async (req, res) => {
 router.get('/:id', async (req, res)=>{
     try{
       const foundUsers = await Users.findById(req.params.id);
-      const foundReviews = await Reviews.findOne({'articles._id': req.params.id});
+      const foundReviews = await Reviews.findOne({'reviews._id': req.params.id});
       res.render('reviews/show.ejs', {
             reviews: foundReviews,
             users: foundUsers

@@ -2,7 +2,6 @@ const express = require('express');
 const router  = express.Router();
 const User    = require('../models/users');
 const bcrypt  = require('bcryptjs');
-const objectId = require('mongodb').ObjectID;
 
 //login
 router.get('/login', (req, res) => {
@@ -55,7 +54,8 @@ router.get('/logout', (req, res) => {
     if(err){
       res.send(err);
     } else {
-      res.redirect('/auth/login')
+      console.log('logout succesful')
+      res.redirect('/')
     }
   });
 });
