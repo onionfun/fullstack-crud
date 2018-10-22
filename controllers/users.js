@@ -27,7 +27,7 @@ router.get('/', async (req, res)=>{
 //show
 router.get('/:id', async (req, res)=>{
     try{
-      const foundUsers = await Users.findById(req.params.id);
+      const foundUsers = await Users.findById({'users._id': req.params.id});
       const foundReviews = await Reviews.findOne({'reviews._id': req.params.id});
       res.render('users/show.ejs', {
             reviews: foundReviews,

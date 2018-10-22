@@ -14,7 +14,12 @@ app.use(session({
     secret: 'This is some random secret string',
     resave: false,
     saveUninitialized: false
-  }));
+}));
+app.use(function(req, res, next) {
+    res.locals.user = req.session.user;
+    next();
+  });
+
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(methodOverride('_method'));
 app.use('/users', usersController);

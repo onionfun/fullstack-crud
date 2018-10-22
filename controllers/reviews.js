@@ -9,10 +9,10 @@ const Reviews = require('../models/reviews');
 router.get('/',async (req, res) => {
     try{
         const foundUser = await Users.find({});
-        const loggedIn = await Users.findOne({'users._id': req.params.id});
+        const currentUser = await Users.findById(req.session.userId)
         res.render('reviews/index.ejs', {
             users: foundUser,
-            currentUser: loggedIn
+            user: currentUser,
         })
     } catch(err){
         res.send(err)
