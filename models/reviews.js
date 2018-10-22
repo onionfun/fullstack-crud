@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 const Users = require('../models/users');
 const reviewSchema = new mongoose.Schema({
-    username: {type:String, required: false},
-    password: {type:String, required: false},
-    users: [Users.schema]
+    // review: String,
+    reviews: [{type:mongoose.Schema.Types.ObjectId, ref: 'Users'}]
   });
-  
   module.exports = mongoose.model('Reviews', reviewSchema);

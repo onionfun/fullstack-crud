@@ -15,7 +15,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
-app.use(function(req, res, next) {
+app.use((req, res, next)=> {
     res.locals.user = req.session.user;
     next();
   });
@@ -25,7 +25,10 @@ app.use(methodOverride('_method'));
 app.use('/users', usersController);
 app.use('/reviews', reviewsController);
 app.use('/auth', authController);
-
+app.use('/users/:userId/reviews', (req, res, next)=>{
+    req.userId=req.params.userId
+    next()
+}, reviewsController);
 
 //landing
 app.get('/', (req, res)=>{
@@ -33,5 +36,5 @@ app.get('/', (req, res)=>{
 });
 
 app.listen(3000, ()=>{
-    console.log('App LISTENINNNNNNNNNNNNNNNG')
+    console.log('App LISTENING')
 });

@@ -2,11 +2,12 @@ const express = require('express');
 const router = express.Router();
 const Users = require('../models/users');
 const Reviews = require('../models/reviews');
+const requireLogin = require('../middleware/requireLogin')
 
 
 //routes
 //index
-router.get('/',async (req, res) => {
+router.get('/', requireLogin, async (req, res) => {
     try{
         const foundUser = await Users.find({});
         const currentUser = await Users.findById(req.session.userId)
@@ -20,7 +21,7 @@ router.get('/',async (req, res) => {
 })
 
 //that new new
-router.get('/new', async (req, res) => {
+router.get('/new',requireLogin, async (req, res) => {
     try{
       const allUsers = await Users.find({});
       res.render('reviews/new.ejs',{
@@ -31,7 +32,7 @@ router.get('/new', async (req, res) => {
     }
 })
 //show
-router.get('/:id', async (req, res)=>{
+router.get('/:id',requireLogin, async (req, res)=>{
     try{
       const foundUsers = await Users.findById(req.params.id);
       const foundReviews = await Reviews.findOne({'reviews._id': req.params.id});
@@ -58,7 +59,7 @@ router.get('/:id/edit', (req, res)=>{
     });
 });
 //post
-router.post('/', (req, res)=>{
+router.post('/',requireLogin, (req, res)=>{
     User.findById(req.body.UserId, (err, foundUsers) => {
       Reviews.create(req.body, (err, createdReviews) => {
         foundUsers.reviews.push(createdReviews);
@@ -69,7 +70,7 @@ router.post('/', (req, res)=>{
     });
 });
 //delete
-router.delete('/:id', (req, res)=>{
+router.delete('/:id',requireLogin, (req, res)=>{
     Reviews.findByIdAndRemove(req.params.id, (err, deletedReviews)=>{ 
     Users.findOne({'reviews._id': req.params.id}, (err, foundUsers) => {
         foundUsers.reviews.id(req.params.id).remove();
@@ -80,7 +81,7 @@ router.delete('/:id', (req, res)=>{
     });
 });
 //put
-router.put('/:id', (req, res)=>{
+router.put('/:id', requireLogin, (req, res)=>{
     Article.findOneAndUpdate(req.params.id, req.body, {new: true}, (err, updatedArticle)=>{
       Author.findOne({'articles._id': req.params.id}, (err, foundAuthor) => {
         if(foundAuthor._id.toString() !== req.body.authorId){

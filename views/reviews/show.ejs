@@ -7,7 +7,11 @@
   <header>
     <h1><%=users.username%>'s Profile</h1>
   </header>
-      <a href="/reviews/"><button>Home</button></a><br>
-      <a href="/users/<%=users._id%>"><button>Review User</button></a>
+      <a href="/reviews"><button>Home</button></a><br>
+      <form action="/users/<%=users._id%>?_method=POST" method="POST">
+      <input type="textarea" name="text"><br/>
+      <button type="submit">Submit Review</button>
+      </form>
+      
 </body>
-</html>
+</html> 
