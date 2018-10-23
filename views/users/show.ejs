@@ -5,11 +5,11 @@
 </head>
 <body>
   <header>
-    <h1>Show Page for <%=users.name%></h1>
+    <h1>Review Page for <%=users.username%></h1>
     <nav>
       <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/users">Dogs</a></li>
+        <li><a href="/users">Users</a></li>
       </ul>
     </nav>
   </header>
@@ -22,12 +22,16 @@
     </section>
 
     <section>
-      <a href="/users/<%=users.id%>/edit">Edit</a>
-    </section>
+      <form action="/users" method="POST">
+<!-- drop down menu-->
+<select name="users">
+    <%for (let i = 0; i < users.length; i++) { %>
+       <option value="<%=users[i]._id%>"><%=users[i].username%></option>
+       <%}%>
+       </select> </br>
 
-    <section>
-      <form action="/users/<%=users.id%>?_method=DELETE" method="POST">
-        <button type="submit">Delete User</button>
+     <textarea placeholder="Review User"></textarea> </br>
+        <button type="submit">Submit User Review</button>
       </form>
     </section>
   </main>

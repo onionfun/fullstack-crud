@@ -15,22 +15,28 @@ router.get('/', async (req, res)=>{
     }
 });
 
-// router.post('/', async (req, res) => {
-//     try{
-//         const users = await Users.create(req.body);
-//         res.redirect('users/index.ejs')
-//     }catch(err){
-//         res.send(err);
-//     }
-// });
+//post route
+router.post('/', async (req, res) => {
+    try{
+        const users = await Users.findById(req.body.userId);
+        const review = await Reviews.create(req.body);
+        users.reviews.push(review);
+        await users.save();
+        res.redirect('users/index.ejs')
+    }catch(err){
+        console.log("ALERT")
+        res.send(err);
+    }
+});
+
 
 //show
 router.get('/:id', async (req, res)=>{
     try{
       const foundUsers = await Users.findById(req.params.id);
-      const foundReviews = await Reviews.findOne({'reviews._id': req.params.id});
+      //const foundReviews = await Reviews.findById({'reviews._id':req.params.id});//{'users._id':
       res.render('users/show.ejs', {
-            reviews: foundReviews,
+           // reviews: foundReviews,
             users: foundUsers
       });
     }

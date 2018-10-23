@@ -1,0 +1,28 @@
+{
+"folders": [
+	{
+		"uri": "vsls:/",
+		"name": "projectDos"
+	}
+],
+  "settings" : {
+    "vsliveshare.join.reload.workspaceFolder" : "\/var\/folders\/nx\/2fkw371j5zlcxz8jk3qkr52w0000gn\/T\/vsliveshare\/tmp-31CEF38C965694AAD4D96AFBF13AE258EFFB",
+    "files.hotExit": "off",
+    "vsliveshare.join.reload.workspaceId" : "31CEF38C965694AAD4D96AFBF13AE258EFFB",
+    "vsliveshare.join.correlationId": "d7bacf5f-91c4-4961-a3f6-61365b172d1b",
+    "extensions.ignoreRecommendations": true,
+    "editor.detectIndentation": true,
+    "editor.formatOnSave": false,
+    "files.autoSave": "off",
+    "files.trimTrailingWhitespace": false,
+    "files.insertFinalNewline": false,
+    "files.trimFinalNewlines": false,
+    "typescript.tsc.autoDetect": "off",
+    "jake.autoDetect": "off",
+    "grunt.autoDetect": "off",
+    "gulp.autoDetect": "off",
+    "npm.autoDetect": "off",
+    "debug.allowBreakpointsEverywhere": true,
+    "html.autoClosingTags": false
+  }
+}

@@ -58,16 +58,20 @@ router.get('/:id/edit', (req, res)=>{
     });
 });
 //post
-router.post('/', (req, res)=>{
-    User.findById(req.body.UserId, (err, foundUsers) => {
-      Reviews.create(req.body, (err, createdReviews) => {
-        foundUsers.reviews.push(createdReviews);
-        foundUsers.save((err, data) => {
-          res.redirect('/reviews')
-        });
-      });
-    });
+router.post('/', async (req, res)=>{
+  try{
+const foundUsers = Users.findById(req.body.UserId);
+  const reviews = Reviews.create(req.body);
+  foundUsers.reviews.push(createdReviews);
+ foundUsers.save();
+res.redirect('/reviews')
+  }catch(err){
+  res.send(err)
+}
 });
+
+//usermodel has array of reviews about them
+//ON SHOW EJS .get /new => reviews/new.ejs, {pass in users: reviewschema.find({})}
 //delete
 router.delete('/:id', (req, res)=>{
     Reviews.findByIdAndRemove(req.params.id, (err, deletedReviews)=>{ 
