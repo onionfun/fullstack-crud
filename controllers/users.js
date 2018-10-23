@@ -4,7 +4,6 @@ const Users = require('../models/users');
 const Review = require('../models/reviews')
 const requireLogin = require('../middleware/requireLogin')
 
-
 //index
 router.get('/',requireLogin, async (req, res)=>{
     try{
@@ -16,6 +15,23 @@ router.get('/',requireLogin, async (req, res)=>{
         res.send(err)
     }
 });
+
+//show
+router.get('/:id',requireLogin, async (req, res)=>{
+    try{
+      const foundUsers = await Users.findById(req.params.id);
+    //   const foundReviews = await Reviews.findOne({'reviews._id': req.params.id});
+      res.render('users/show.ejs', {
+            // reviews: foundReviews,
+            users: foundUsers
+      });
+    }
+     catch(err){
+         console.log('error message')
+      res.send(err)
+    }
+});
+
 //post review of the user for the user take that infor and put it in the reviews for a specific user
 router.post('/',requireLogin, async (req, res) => {
     console.log('reached post')
@@ -28,21 +44,6 @@ router.post('/',requireLogin, async (req, res) => {
     }
 });
 
-//show
-router.get('/:id',requireLogin, async (req, res)=>{
-    try{
-      const foundUsers = await Users.findById(req.params.id);
-      const foundReviews = await Reviews.findOne({'reviews._id': req.params.id});
-      res.render('users/show.ejs', {
-            reviews: foundReviews,
-            users: foundUsers
-      });
-    }
-     catch(err){
-         console.log('error message')
-      res.send(err)
-    }
-});
 
 
 // router.delete('/:id', async (req, res) => {
