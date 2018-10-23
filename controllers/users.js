@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const Users = require('../models/users');
-const objectId = require('mongodb').ObjectID;
+const Review = require('../models/reviews')
+const requireLogin = require('../middleware/requireLogin')
 
 //index
-router.get('/', async (req, res)=>{
+router.get('/',requireLogin, async (req, res)=>{
     try{
         const allUsers = await Users.find();
         res.render('index.ejs', {
@@ -15,22 +16,13 @@ router.get('/', async (req, res)=>{
     }
 });
 
-// router.post('/', async (req, res) => {
-//     try{
-//         const users = await Users.create(req.body);
-//         res.redirect('users/index.ejs')
-//     }catch(err){
-//         res.send(err);
-//     }
-// });
-
 //show
-router.get('/:id', async (req, res)=>{
+router.get('/:id',requireLogin, async (req, res)=>{
     try{
       const foundUsers = await Users.findById(req.params.id);
-      const foundReviews = await Reviews.findOne({'reviews._id': req.params.id});
+    //   const foundReviews = await Reviews.findOne({'reviews._id': req.params.id});
       res.render('users/show.ejs', {
-            reviews: foundReviews,
+            // reviews: foundReviews,
             users: foundUsers
       });
     }
@@ -39,6 +31,19 @@ router.get('/:id', async (req, res)=>{
       res.send(err)
     }
 });
+
+//post review of the user for the user take that infor and put it in the reviews for a specific user
+router.post('/',requireLogin, async (req, res) => {
+    console.log('reached post')
+    console.log(req.body)
+    try{
+        await Reviews.create(req.body);
+        res.redirect('users/index.ejs')
+    }catch(err){
+        res.send(err);
+    }
+});
+
 
 
 // router.delete('/:id', async (req, res) => {

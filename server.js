@@ -14,13 +14,21 @@ app.use(session({
     secret: 'This is some random secret string',
     resave: false,
     saveUninitialized: false
-  }));
+}));
+app.use((req, res, next)=> {
+    res.locals.user = req.session.user;
+    next();
+  });
+
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(methodOverride('_method'));
 app.use('/users', usersController);
 app.use('/reviews', reviewsController);
 app.use('/auth', authController);
-
+app.use('/users/:userId/reviews', (req, res, next)=>{
+    req.userId=req.params.userId
+    next()
+}, reviewsController);
 
 //landing
 app.get('/', (req, res)=>{
@@ -28,5 +36,5 @@ app.get('/', (req, res)=>{
 });
 
 app.listen(3000, ()=>{
-    console.log('App LISTENINNNNNNNNNNNNNNNG')
+    console.log('App LISTENING')
 });

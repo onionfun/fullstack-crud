@@ -8,6 +8,10 @@
     <h1>New Review</h1>
   </header>
     <a href="/reviews/"><button>Back</button></a><br>
-    <a href="users/new"><button>Create a new Review</button></a>
+    <form action="/reviews" method="POST">
+    <input type="text" name="name">
+    <textarea name="body"></textarea><br/>
+    <button type="submit">Submit Review</button>
+    </form>
 </body>
 </html>
