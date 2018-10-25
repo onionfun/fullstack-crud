@@ -1,23 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
+<link rel="stylesheet" type="text/css" href="./partials/style.css" media="screen" />
+<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<style>
+
+body{
+  background-image: url("http://kuberadio.com/wp-content/uploads/2017/12/1166895-0-q80-750x422.jpg");
+}
+.h1 {
+  color: red;
+  font-family: 'Lobster', cursive;
+  top: 30%;
+  margin-left: 10%;
+  margin-top: 120px ;
+}
+.h2 {
+  margin-left: 8%;
+  bottom: auto;
+}
+</style>
+  <title>Login</title>
 </head>
 <body>
-
-  <h1>Register</h1> <small><%=message%></small>
-  <form action="/auth/register" method="POST">
+<section class="login-block">
+            <div class="container">
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-8 login">
+  <h1 class = "h1">Register</h1> <small><%=message%></small>
+  <form class="h2" action="/auth/register" method="POST">
     <input type="text" name="username">
     <input type="password" name="password">
-    <button type="submit">Register</button>
+    <button class="btn btn-danger" type="submit">Register</button>
   </form>
 
-  <h1>Login</h1> <small><%=message%></small>
-  <form action="/auth/login" method="POST">
+  <h1 class="h1">Login</h1> <small><%=message%></small>
+  <form class="h2" action="/auth/login" method="POST">
     <input type="text" name="username">
     <input type="password" name="password">
-    <button type="submit">Login</button>
+    <button class="btn btn-warning" type="submit">Login</button>
   </form>
-
+</div>
+</div>
+</div>
+</div>
+</section>
   </body>
   </html>

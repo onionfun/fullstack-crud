@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 const Users = require('../models/users');
+
 const reviewSchema = new mongoose.Schema({
-    username: String,
-    password: String,
-    users: [Users.schema]
+    text: String,
+    rating: Number,
+    reviewer: Users.schema,
+    subject: Users.schema
   });
   
   module.exports = mongoose.model('Reviews', reviewSchema);

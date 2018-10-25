@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Edit Review</title>
+</head>
+<body>
+    <h2>Do it, wimp</h2>
+    <form action="/reviews/<%=review._id%>?_method=PUT" method="POST">
+     <textarea value="<%=review.text%>" name="text"></textarea> </br>
+        <button type="submit">Save Changes</button>
+      </form>
+</body>
+</html>

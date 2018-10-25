@@ -5,24 +5,23 @@
 </head>
 <body>
   <header>
-    <h1>Users</h1>
+    <h1>Santa's Little Helpers</h1>
     <nav>
       <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="users/new">Create a new User</a></li>
+        <li><a href="/users/<%=users._id%>">Home</a></li>
       </ul>
     </nav>
   </header><!-- /header -->
   <main>
-    <h2>Your Page</h2>
+    <h2>Users</h2>
     <ul>
 <!--THEIR REVIEWS -->
 <section>
-    <% for (let i = 0; i < reviews.length; i++) { %>
-        <a href="/reviews/<%=reviews[i]._id%>"></a>
-    <%}%>
-</section>
-    </ul>
+<ul>
+<% for (let i = 0; i < users.length; i++){%>
+     <li><a href="/reviews/new"><%=users[i].username %></a></li>
+<%}%>   
+</ul> 
 
   </main>
 </body>

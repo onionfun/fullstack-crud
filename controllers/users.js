@@ -1,19 +1,77 @@
 const express = require('express');
 const router = express.Router();
 const Users = require('../models/users');
+const Reviews = require('../models/reviews')
 const objectId = require('mongodb').ObjectID;
+
 
 //index
 router.get('/', async (req, res)=>{
     try{
         const allUsers = await Users.find();
-        res.render('index.ejs', {
+        res.render('users/index.ejs', {
             users: allUsers
         })
     } catch(err){
         res.send(err)
     }
 });
+//edit UN/PW
+router.get('/:id/edit', async (req, res)=>{
+    try {
+      const foundUser = await Users.find(req.params.text);
+      console.log(foundUser);
+      res.render('users/edit.ejs', {
+        users: foundUser,
+      });
+  
+    } catch (err){
+        res.send(err)
+    }
+  });
+  
+  
+  router.put('/:id', async (req, res)=>{
+   try {
+    await Users.findOneAndUpdate(req.params.id, req.body);
+    res.redirect('/users');
+   } catch (err) {
+    res.send(err)
+   }
+   
+  });
+
+//show
+router.get('/:id', async (req, res)=>{
+    try{
+      const foundUsers = await Users.findById(req.params.id);
+      const foundReviews = await Reviews.find({subject: foundUsers});
+      res.render('users/show.ejs', {
+           reviews: foundReviews,
+            users: foundUsers
+      });
+    }
+     catch(err){
+         console.log('YA DUN MESSED UP')
+         console.log(err)
+      res.send(err)
+    }
+});
+
+/*
+from reviews 
+router.get('/:id', async (req, res)=>{
+    try{
+      const foundUsers = await Users.findById(req.params.id);
+      const foundReviews = await Reviews.findOne({'reviews._id': req.params.id});
+      res.render('reviews/show.ejs', {
+            reviews: foundReviews,
+            users: foundUsers
+      });
+    } catch(err){
+      res.send(err)
+    }
+})*/
 
 //post route
 router.post('/', async (req, res) => {
@@ -22,7 +80,7 @@ router.post('/', async (req, res) => {
         const review = await Reviews.create(req.body);
         users.reviews.push(review);
         await users.save();
-        res.redirect('users/index.ejs')
+        res.redirect('/users')
     }catch(err){
         console.log("ALERT")
         res.send(err);
@@ -30,35 +88,19 @@ router.post('/', async (req, res) => {
 });
 
 
-//show
-router.get('/:id', async (req, res)=>{
+
+router.delete('/:id', async (req, res) => {
     try{
-      const foundUsers = await Users.findById(req.params.id);
-      //const foundReviews = await Reviews.findById({'reviews._id':req.params.id});//{'users._id':
-      res.render('users/show.ejs', {
-           // reviews: foundReviews,
-            users: foundUsers
-      });
-    }
-     catch(err){
-         console.log('error message')
-      res.send(err)
+        const users = await Users.findById(req.params.id);
+        for (let i = 0; i < users.length; i++){
+            await Reviews.findByIdAndDelete(users[i]._id);
+        }
+        await Users.findByIdAndDelete(req.params.id)
+        res.redirect('/users')
+    }catch(err){
+        res.send(err);
     }
 });
-
-
-// router.delete('/:id', async (req, res) => {
-//     try{
-//         const users = await Users.findById(req.params.id);
-//         for (let i = 0; i < users.reviews.length; i++){
-//             await Reviews.findByIdAndDelete(users.reviews[i]._id);
-//         }
-//         await Users.findByIdAndDelete(req.params.id)
-//         res.redirect('/users')
-//     }catch(err){
-//         res.send(err);
-//     }
-// });
 
 
 

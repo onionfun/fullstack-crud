@@ -1,39 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="./partials/style.css" media="screen" />
+<link href="https://fonts.googleapis.com/css?family=Lobster|Creepster|Mali" rel="stylesheet">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<style>
+body{
+  background-image: url("http://kuberadio.com/wp-content/uploads/2017/12/1166895-0-q80-750x422.jpg");
+}
+.h1 {
+  color: red;
+  font-family: 'Lobster', cursive;
+  top: 30%;
+  bottom: auto;
+  margin-left: 10%;
+}
+.h2 {
+  color: white;
+  font-family: 'Mali', cursive;  
+  top: 30%;
+  bottom: auto;
+  margin-left: 10%;
+}
+.all{
+  margin-left: 10%;
+}
+</style>
   <title></title>
 </head>
 <body>
+
   <header>
-    <h1>Review Page for <%=users.username%></h1>
-    <nav>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/users">Users</a></li>
-      </ul>
-    </nav>
+    <h1 class="h1"><%=users.username%>'s Profile</h1>
   </header>
-  <main>
-    <section>
-      <h2>User Attributes</h2>
-      <ul>
-        <li>Name: <%=users.username%></li>
-      </ul>
-    </section>
-
-    <section>
-      <form action="/users" method="POST">
-<!-- drop down menu-->
-<select name="users">
-    <%for (let i = 0; i < users.length; i++) { %>
-       <option value="<%=users[i]._id%>"><%=users[i].username%></option>
-       <%}%>
-       </select> </br>
-
-     <textarea placeholder="Review User"></textarea> </br>
-        <button type="submit">Submit User Review</button>
-      </form>
-    </section>
-  </main>
+  <div class="all">
+<form action="/users/<%=users._id%>?_method=DELETE" method="POST">
+      <button class="btn btn-danger" type="submit">KYS?</button
+      > </form
+      > <a href="/reviews"><button class="btn btn-light">See all Reviews</button></a><br>
+      <a href="/auth/logout"><button class="btn btn-danger">Logout</button></a> <br>
+      <a href="/reviews/<%=users._id%>/edit"><button class="btn btn-light">Edit Review</button></a>
+      <a href="/users/<%=users._id%>/edit"><button class="btn btn-danger">Edit Name or Password</button></a>
+      
+      </div>
+      
+      <!--ALL YOUR REVIEWS -->
+      <h1 class="h1">Reviews About You:</h1>
+      <section>
+      <% for (let i = 0; i < reviews.length; i++) { %>
+          <p class ="h2"><%=reviews[i].text %></p>
+      <%}%>
+  </section>
+ 
 </body>
 </html>
+
+
