@@ -3,7 +3,9 @@ const router = express.Router();
 const Users = require('../models/users');
 const Reviews = require('../models/reviews')
 const objectId = require('mongodb').ObjectID;
-
+const requireLogin = require('../middleware/requireLogin');
+const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
 
 //index
 router.get('/', async (req, res)=>{
@@ -17,9 +19,10 @@ router.get('/', async (req, res)=>{
     }
 });
 //edit UN/PW
-router.get('/:id/edit', async (req, res)=>{
+router.get('/:id/edit',  async (req, res)=>{//requireLogin,
     try {
-      const foundUser = await Users.find(req.params.text);
+      const foundUser = await Users.findById(req.params.id);
+      //const foundUser = await User.findById(req.session.username);
       console.log(foundUser);
       res.render('users/edit.ejs', {
         users: foundUser,
@@ -30,17 +33,22 @@ router.get('/:id/edit', async (req, res)=>{
     }
   });
   
-  
-  router.put('/:id', async (req, res)=>{
+  router.put('/:id',  async (req, res)=>{//requireLogin,
    try {
-    await Users.findOneAndUpdate(req.params.id, req.body);
-    res.redirect('/users');
+    const updatedUser = await Users.findByIdAndUpdate(req.session.userId, {$set:req.body}, (err) =>{
+        console.log(err);
+    });
+    console.log(updatedUser)
+    req.session.userId = updatedUser._id;
+    //console.log(req.session.username);
+    res.redirect("/users/");
    } catch (err) {
+       console.log("ERROR", err)
     res.send(err)
    }
-   
   });
-
+/* 
+*/
 //show
 router.get('/:id', async (req, res)=>{
     try{

@@ -30,23 +30,24 @@ router.post('/register', async (req, res) => {
 //login
 router.post('/login', async (req, res) => {
   try {
-          const foundUser = await User.findOne({username: req.body.username});
-          console.log(foundUser)
-          if(foundUser){
-            if(bcrypt.compareSync(req.body.password, foundUser.password)){
-              req.session.logged = true;
-              req.session.userId = foundUser._id;
-              res.redirect('/users/'+foundUser._id)
-            } else {
-              req.session.message = 'Username or Password is Wrong';
-              res.redirect('/auth/login')
-            }
-        } else {
-              req.session.message = 'Username or Password is Wrong';
-              res.redirect('/auth/login')
-            } 
-    } catch(err) {
-    res.send('error')
+    const foundUser = await User.findOne({username: req.body.username});
+    console.log(foundUser)
+    if(foundUser){
+      if(bcrypt.compareSync(req.body.password, foundUser.password)){
+        req.session.logged = true;
+        req.session.userId = foundUser._id;
+        console.log(req.session.userId);
+        res.redirect('/users/'+foundUser._id)
+      } else {
+        req.session.message = 'Username or Password is Wrong';
+        res.redirect('/auth/login')
+      }
+  } else {
+        req.session.message = 'Username or Password is Wrong';
+        res.redirect('/auth/login')
+      } 
+} catch(err) {
+res.send('error')
   }
 });
 //logout

@@ -60,7 +60,7 @@ router.get('/:id/edit', async (req, res)=>{
 
 router.put('/:id', async (req, res)=>{
  try {
-  await Reviews.findOneAndUpdate(req.params.id, req.body);
+  await Reviews.findOneAndUpdate(req.params.text, req.body);
   res.redirect('/reviews');
  } catch (err) {
   res.send(err)
