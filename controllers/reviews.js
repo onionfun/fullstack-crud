@@ -31,6 +31,13 @@ router.get('/new', async (req, res) => {
       res.send(err)
     }
 })
+
+//wrap delete in an if check in partial where you display 2 different versions when someone is logged in
+//delete and log out 
+//use express static in static folder
+
+
+
 //show
 // router.get('/:id', async (req, res)=>{
 //     try{
@@ -155,3 +162,21 @@ router.put('/:id', (req, res)=>{
   });
 */
   module.exports = router;
+
+
+
+/*  if `users` is the logged in user, you first have to make sure that variable is being sent to every 
+route, and that these links only show up if there is a user logged in. REQUIRELOGIN
+You should be able to use the 
+res.locals middleware trick features in a few other peoples projects to ensure that there IS a local 
+variable named user in every route, and that it is either the logged in user or an empty object. That 
+way, you can test if the user variable has an _id property as a way of checking if somebody's logged 
+in or if the user variable is just empty. I would definitely try to make sure that when a variable 
+refers to just one thing, its single case- 'users' is a confusing name for what probably means the 
+logged in user.
+Also, I question what the editing reviews route is doing on line 27- why would that be in the navbar? 
+Which review would it refer to, and why would the id of the current user be important to that? I think 
+it would be better to have a page that shows all the current users reviews (maybe on their show page?) 
+and have an edit button there. Probably easiest and best to just delete that option from the navbar, 
+maybe replace it with a "your profile" that leads to a page with all the current user's reviews or 
+something like that.*/

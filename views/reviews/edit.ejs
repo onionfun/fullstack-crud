@@ -3,18 +3,25 @@
 <head>
 <link rel="stylesheet" type="text/css" href="./partials/style.css" media="screen" />
 <link href="https://fonts.googleapis.com/css?family=Lobster|Creepster|Mali" rel="stylesheet">
-<% include ../partials/_navbar %>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+ 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Edit Review</title>
 </head>
 <body>
-<h2>Change your review?</h2>
+<header>
+<% include ../partials/_navbar %>
+</header>
+
+<h2 class="h1">Change your review?</h2>
 
     <form action="/reviews/<%=review._id%>?_method=PUT" method="POST">
      <textarea placeholder="Good luck figuring out which review you're editing" name="text"> <%=review.text%> </textarea> </br>
-        <button type="submit">Save Changes</button>
+     <button class="btn btn-light" type="submit">Save Changes</button>
       </form>
 </body>
 </html>
+
+

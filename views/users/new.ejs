@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
+<link rel="stylesheet" type="text/css" href="./partials/style.css" media="screen" />
+<link href="https://fonts.googleapis.com/css?family=Lobster|Creepster|Mali" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+ <title>New Review</title>
 </head>
 <body>
   <header>
-    <h1>New Review</h1>
+  <% include ../partials/_navbar %>
+    <h1 class="h1">New Review</h1>
     <nav>
       <ul>
         <li><a href="/">Home</a></li>
@@ -19,7 +23,7 @@
 <form action="/users" method="POST">
   <input type="text" name="name">
   <input type ="textarea">
-  <button type="submit">submit</button>
+  <button class="btn btn-light" type="submit">submit</button>
 </form>
 </main>
     </ul>

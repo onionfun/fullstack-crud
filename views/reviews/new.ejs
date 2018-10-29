@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
+<link rel="stylesheet" type="text/css" href="./partials/style.css" media="screen" />
+<link href="https://fonts.googleapis.com/css?family=Lobster|Creepster|Mali" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+ <title>New Review</title>
 </head>
+
 <body>
-  <header>
-    <h1>New Review</h1>
+  <header> 
+  <% include ../partials/_navbar %>
+    <h1 class="h1">New Review</h1>
   </header>
-    <a href="/reviews/"><button>Back</button></a><br>
+    <a href="/reviews/"><button class="btn btn-danger">Back</button></a><br>
     <form action="/reviews" method="POST">
     <select name="subject">
     <%for (let i = 0; i < users.length; i++) { %>
@@ -16,7 +21,7 @@
        </select> </br>
   <input type="number" placeholder = "1" min="1" max="5" name="rating"> </br>
      <textarea placeholder="Review User" name="text"></textarea> </br>
-        <button type="submit">Submit User Review</button>
+        <button class="btn btn-light" type="submit">Submit User Review</button>
       </form>
 
 </body>

@@ -2,17 +2,30 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="./partials/style.css" media="screen" />
-<link href="https://fonts.googleapis.com/css?family=Lobster|Creepster|Mali" rel="stylesheet">
-
-
+<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<style>
 
+body{
+  background-image: url("https://cdn-images-1.medium.com/max/2000/1*shGg78nae41MMRJesYdOCg.png");
+}
+.h1 {
+  color: red;
+  font-family: 'Lobster', cursive;
+  top: 30%;
+  margin-left: 10%;
+  margin-top: 120px ;
+}
+.h2 {
+  margin-left: 8%;
+  bottom: auto;
+}
+</style>
   <title></title>
 </head>
 <body>
   <header>
-  <% include ../partials/_navbar %>
-    <h1>Santa's Little Helpers</h1>
+    <h1 class="h1">Santa's Little Helpers</h1>
     <nav>
       <ul>
         <li><a href="/users/<%=users._id%>">Home</a></li>
@@ -20,7 +33,7 @@
     </nav>
   </header><!-- /header -->
   <main>
-    <h2>Users</h2>
+    <h2 class="h1">Users</h2>
     <ul>
 <!--THEIR REVIEWS -->
 <section>

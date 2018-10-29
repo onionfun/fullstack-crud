@@ -19,7 +19,7 @@ router.get('/', async (req, res)=>{
     }
 });
 //edit UN/PW
-router.get('/:id/edit',  async (req, res)=>{//requireLogin,
+router.get('/:id/edit', async (req, res)=>{//requireLogin,
     try {
       const foundUser = await Users.findById(req.params.id);
       //const foundUser = await User.findById(req.session.username);
@@ -33,7 +33,7 @@ router.get('/:id/edit',  async (req, res)=>{//requireLogin,
     }
   });
   
-  router.put('/:id',  async (req, res)=>{//requireLogin,
+  router.put('/:id', async (req, res)=>{//requireLogin,
    try {
     const updatedUser = await Users.findByIdAndUpdate(req.session.userId, {$set:req.body}, (err) =>{
         console.log(err);

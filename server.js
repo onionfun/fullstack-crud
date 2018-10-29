@@ -20,6 +20,7 @@ app.use(methodOverride('_method'));
 app.use('/users', usersController);
 app.use('/reviews', reviewsController);
 app.use('/auth', authController);
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 /*
 const MongoDBStore = require('connect-mongodb-session')(session);
 const store = new MongoDBStore({
@@ -52,7 +53,9 @@ app.use(require('express-session')({
  
 app.get('/', function(req, res) {
   res.send('Hello ' + JSON.stringify(req.session));
-});*/
+});
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*/
 //app.use(session())
 //app.use(async(req,res, next)=>{
    // res.locals.user=req.ession.user || {}; //says we have local constiable in the template
