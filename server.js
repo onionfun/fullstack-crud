@@ -11,7 +11,7 @@ require('./db/db');
 
 //middleware
 app.use(session({
-    secret: 'This is some random secret string',
+    secret: 'Keep it secret, keep it safe.',
     resave: false,
     saveUninitialized: false
   }));
@@ -21,7 +21,7 @@ app.use('/users', usersController);
 app.use('/reviews', reviewsController);
 app.use('/auth', authController);
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-/*
+
 const MongoDBStore = require('connect-mongodb-session')(session);
 const store = new MongoDBStore({
   uri: 'mongodb://localhost:27017/connect_mongodb_session_test',
@@ -55,7 +55,7 @@ app.get('/', function(req, res) {
   res.send('Hello ' + JSON.stringify(req.session));
 });
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-*/
+
 //app.use(session())
 //app.use(async(req,res, next)=>{
    // res.locals.user=req.ession.user || {}; //says we have local constiable in the template
