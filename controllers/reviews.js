@@ -4,6 +4,7 @@ const Users = require('../models/users');
 const Reviews = require('../models/reviews');
 const objectId = require('mongodb').ObjectID;
 const methodOverride = require('method-override');
+const requireLogin = require('../middleware/requireLogin')
 
 //routes
 //index
@@ -51,7 +52,7 @@ router.get('/new', async (req, res) => {
 //       res.send(err)
 //     }
 // })
-router.get('/:id/edit', async (req, res)=>{
+router.get('/:id/edit', requireLogin, async (req, res)=>{
   try {
     const foundReview = await Reviews.find(req.params.text);
     console.log(foundReview);
@@ -65,7 +66,7 @@ router.get('/:id/edit', async (req, res)=>{
 });
 
 
-router.put('/:id', async (req, res)=>{
+router.put('/:id', requireLogin, async (req, res)=>{
  try {
   await Reviews.findOneAndUpdate(req.params.text, req.body);
   res.redirect('/reviews');
@@ -107,8 +108,12 @@ router.put('/:id', async (req, res)=>{
 //post create
 router.post('/', async (req, res)=>{
   try{
-  const foundSubject = await Users.findById(req.body.subject);
-  const foundReviewer = await Users.findById(req.session.userId);
+  const foundSubject = await Users.findOne(req.body.subject);
+  const foundReviewer = await Reviews.findOneAndUpdate(req.session.userId);
+  //const reviews = await Review.findById(review.body.id).populate('user').populate('happyHours');
+  //res.render('/reviews', {
+      //reviews: reviews
+     
   const reviewCreated = {
     text: req.body.text,
     rating: req.body.rating,

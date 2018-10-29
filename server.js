@@ -6,14 +6,26 @@ const usersController = require('./controllers/users.js');
 const reviewsController = require('./controllers/reviews.js');
 const authController     = require('./controllers/auth');
 const session        = require('express-session');
+const morgan = require('morgan');
+const requireLogin = require('./middleware/requireLogin')
+const MongoDBStore = require('connect-mongodb-session')(session);
+const store = new MongoDBStore({
+  uri: 'mongodb://localhost:27017/connect_mongodb_session_test',
+  collection: 'mySessions'
+});
 
 require('./db/db');
 
 //middleware
+app.use(morgan('short'));
 app.use(session({
     secret: 'Keep it secret, keep it safe.',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
+    },
+    store: store,
   }));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(methodOverride('_method'));
@@ -22,10 +34,9 @@ app.use('/reviews', reviewsController);
 app.use('/auth', authController);
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 
-const MongoDBStore = require('connect-mongodb-session')(session);
-const store = new MongoDBStore({
-  uri: 'mongodb://localhost:27017/connect_mongodb_session_test',
-  collection: 'mySessions'
+app.use((req, res, next)=> {
+  res.locals.userId = req.session.userId;
+  next();
 });
  
 store.on('connected', function() {
@@ -34,26 +45,15 @@ store.on('connected', function() {
  
 // Catch errors
 store.on('error', function(error) {
-  assert.ifError(error);
-  assert.ok(false);
+  //assert.ifError(error);
+  //assert.ok(false);
+  console.log(error)
 });
  
-app.use(require('express-session')({
-  secret: 'This is a secret',
-  cookie: {
-    maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
-  },
-  store: store,
-  // Boilerplate options, see:
-  // * https://www.npmjs.com/package/express-session#resave
-  // * https://www.npmjs.com/package/express-session#saveuninitialized
-  resave: true,
-  saveUninitialized: true
-}));
  
-app.get('/', function(req, res) {
-  res.send('Hello ' + JSON.stringify(req.session));
-});
+//app.get('/', function(req, res) {
+ // res.send('Hello ' + JSON.stringify(req.session));
+//});
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //app.use(session())

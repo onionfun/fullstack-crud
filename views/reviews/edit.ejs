@@ -4,7 +4,28 @@
 <link rel="stylesheet" type="text/css" href="./partials/style.css" media="screen" />
 <link href="https://fonts.googleapis.com/css?family=Lobster|Creepster|Mali" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
- 
+<style>
+body{
+  background-image: url("https://cdn-images-1.medium.com/max/2000/1*shGg78nae41MMRJesYdOCg.png");
+}
+.h1 {
+  color: red;
+  font-family: 'Lobster', cursive;
+  top: 30%;
+  bottom: auto;
+  margin-left: 10%;
+}
+.h2 {
+  color: white;
+  font-family: 'Mali', cursive;  
+  top: 30%;
+  bottom: auto;
+  margin-left: 10%;
+}
+.all{
+  margin-left: 10%;
+}
+</style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -12,13 +33,12 @@
 </head>
 <body>
 <header>
-<% include ../partials/_navbar %>
 </header>
 
 <h2 class="h1">Change your review?</h2>
 
     <form action="/reviews/<%=review._id%>?_method=PUT" method="POST">
-     <textarea placeholder="Good luck figuring out which review you're editing" name="text"> <%=review.text%> </textarea> </br>
+     <textarea placeholder="Good luck figuring out which review this is" name="text"> <%=review.text%> </textarea> </br>
      <button class="btn btn-light" type="submit">Save Changes</button>
       </form>
 </body>
