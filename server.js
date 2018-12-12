@@ -14,6 +14,8 @@ const store = new MongoDBStore({
   collection: 'mySessions'
 });
 
+  
+}
 require('./db/db');
 
 //middleware
